@@ -1,40 +1,31 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ActiveUserContext } from '../ActiveUserContext';
+import { AllUsersContext } from '../AllUsersContext';
 
 const Login = () => {
 
-    const [activeUser, setActiveUser] = useContext(ActiveUserContext)
+    const { setActiveUserLogin } = useContext(ActiveUserContext)
+    const [allUsers, setAllUsers] = useContext(AllUsersContext)
 
-    const [users, setUsers] = useState();
     const [login, setLogin] = useState()
     const [pass, setPass] = useState()
     const navigate = useNavigate()
-
-    const getUsers = async () => {
-        const response = await fetch(`https://my-json-server.typicode.com/dimianni/dummy-json/users`)
-        const data = await response.json()
-        setUsers(data)
-    }
-
-    useEffect(() => {
-        getUsers()
-    }, [])
 
 
     const checkUser = (e) => {
         e.preventDefault()
 
-        const user = users.find(user => user.login === login)
-        console.log(user);
+        const user = allUsers.find(user => user.login === login)
 
-        if(user?.pin === Number(pass)){
+        if (user?.pin === Number(pass)) {
             navigate(`/user/${user.login}`)
-            setActiveUser(user)
+            setActiveUserLogin(user.login)
         } else {
             console.log('Something went wrong :(');
         }
     }
+
 
     return (
         <div className="max-w-xs mx-auto">
@@ -43,7 +34,7 @@ const Login = () => {
                 <input type="password" className="my-2 h-10 px-4 py-2 rounded-2xl" placeholder="Password" onChange={(e) => setPass(e.target.value)} />
                 <button>Login</button>
             </form>
-        </div> 
+        </div>
     )
 }
 

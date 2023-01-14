@@ -2,18 +2,20 @@ import './App.css';
 import Header from './Components/Header'
 import Pages from './Pages';
 import { ActiveUserProvider } from './ActiveUserContext'
+import { AllUsersProvider } from './AllUsersContext';
 
 function App() {
 
-
-
   return (
-    <ActiveUserProvider>
-      <Header />
-      <main className='container'>
-        <Pages />
-      </main>
-    </ActiveUserProvider>
+    <AllUsersProvider>
+      <ActiveUserProvider>
+        <Header />
+        <main className='main container'>
+          <Pages />
+        </main>
+      </ActiveUserProvider>
+    </AllUsersProvider>
+
   );
 }
 

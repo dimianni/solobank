@@ -1,6 +1,10 @@
+import Block from "../UI/Block";
+
 const Loan = () => {
     return (
-        <h1>Loan</h1>
+        <Block>
+            <h1>Loan</h1>
+        </Block>
     )
 }
 

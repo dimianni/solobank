@@ -9,20 +9,20 @@ import Spinner from '../UI/Spinner';
 const UserInterface = () => {
 
 
-    const [activeUser, setActiveUser] = useContext(ActiveUserContext)
+    const { activeUser } = useContext(ActiveUserContext)
+
+    // const { currency, interestRate, locale, movements, movementsDates } = activeUser
 
     let ui = <Spinner />
 
-    // console.log(activeUser);
-
-    if (JSON.stringify(activeUser) !== '{}') {
+    if (activeUser) {
         ui = (<div className='flex flex-col'>
-            <div className="ui-top">
-                <CurrentBalance />
+            <div className="ui-top mb-8">
+                <CurrentBalance movements={activeUser.movements} locale={activeUser.locale} />
             </div>
             <div className="ui-bottom flex justify-between items-start">
                 <div className="ui-bottom_left w-6/12">
-                    <Transactions />
+                    <Transactions movements={activeUser.movements} locale={activeUser.locale} />
                 </div>
                 <div className="ui-bottom_right w-2/5">
                     <Transfer />
@@ -30,7 +30,7 @@ const UserInterface = () => {
                 </div>
             </div>
         </div>)
-    } 
+    }
 
     return (
         <div>
